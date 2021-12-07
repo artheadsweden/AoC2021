@@ -12,6 +12,7 @@ def gamma_epsilon_str(values):
     epsilon = ''.join('0' if d == '1' else '1' for d in gamma)
     return gamma, epsilon
 
+
 def puzzle2(values):
     gamma, epsilon = gamma_epsilon_str(values)
     new_values_oxygen = values.copy()
@@ -30,6 +31,7 @@ def puzzle2(values):
     co2 = int(co2, 2)
     return oxygen * co2
 
+
 def puzzle1(values):
     gamma, epsilon = gamma_epsilon_str(values)
     gamma = int(gamma, 2)
@@ -39,8 +41,9 @@ def puzzle1(values):
 
 def main():
     values = read_input_as_str('../data/input_dec03.txt')
-    print(puzzle1(values))
-    print(puzzle2(values))
+    print(f'2021-12-03 Puzzle 1: {puzzle1(values)}')
+    print(f'2021-12-03 Puzzle 2: {puzzle2(values)}')
+
 
 if __name__ == '__main__':
     main()
