@@ -13,22 +13,25 @@ def gamma_epsilon_str(values):
     return gamma, epsilon
 
 
+def bit_counts(in_data, pos):
+    return len(list(filter(lambda x: x[pos] == '1', in_data)))
+
+
+def filter_candidates(f, candidates):
+    n = 0
+    while len(candidates) > 1:
+        if f(bit_counts(candidates, n) * 2, len(candidates)):
+            candidates = list(filter(lambda x: x[n] == '1', candidates))
+        else:
+            candidates = list(filter(lambda x: x[n] == '0', candidates))
+        n += 1
+
+    return int(candidates[0], 2)
+
+
 def puzzle2(values):
-    gamma, epsilon = gamma_epsilon_str(values)
-    new_values_oxygen = values.copy()
-    pos = 0
-    while len(new_values_oxygen) > 1:
-        new_values_oxygen = [g for g in new_values_oxygen if g[pos] == gamma[pos]]
-        pos += 1
-    new_values_co2 = values.copy()
-    pos = 0
-    while len(new_values_co2) > 1:
-        new_values_co2 = [e for e in new_values_co2 if e[pos] == epsilon[pos]]
-        pos += 1
-    oxygen = new_values_oxygen[0]
-    co2 = new_values_co2[0]
-    oxygen = int(oxygen, 2)
-    co2 = int(co2, 2)
+    oxygen = filter_candidates(lambda a, b: a >= b, values)
+    co2 = filter_candidates(lambda a, b: a < b, values)
     return oxygen * co2
 
 
